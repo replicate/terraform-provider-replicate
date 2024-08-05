@@ -43,6 +43,14 @@ func TestAccDeploymentResource(t *testing.T) {
 					resource.TestCheckResourceAttr("replicate_deployment.test", "max_instances", "4"),
 				),
 			},
+			{
+				Config: testAccDeploymentResourceConfig("replicate-testing", rName, "replicate/hello-world", "5c7d5dc6dd8bf75c1acaa8565735e7986bc5b66206b55cca93cb72c9bf15ccaa", "cpu", 0, 0),
+				Check: resource.ComposeAggregateTestCheckFunc(
+					resource.TestCheckResourceAttr("replicate_deployment.test", "hardware", "cpu"),
+					resource.TestCheckResourceAttr("replicate_deployment.test", "min_instances", "0"),
+					resource.TestCheckResourceAttr("replicate_deployment.test", "max_instances", "0"),
+				),
+			},
 			// Delete testing automatically occurs in TestCase
 		},
 	})
